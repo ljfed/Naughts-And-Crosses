@@ -1,0 +1,14 @@
+
+body {
+    
+}
+h1 {
+    color: darkorange;
+}
+.game {
+    padding-top: 20px;
+    padding-right: 50px;
+}
+.gameTiles {
+    margin: 2px;
+}
