@@ -12,3 +12,11 @@ h1 {
 .gameTile {
     margin: 2px;
 }
+.leftPanel {
+    padding-top: 20px;
+}
+
+
+.extraInfo {
+    margin-top: 40px;
+}

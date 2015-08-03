@@ -23,34 +23,53 @@
             <div class="row">
                 <div class="col-md-6 text-right game">
                     <div class="row" id="row1">
-                        <img src="images/blank.png" class="gameTile">
-                        <img src="images/blank.png" class="gameTile">
-                        <img src="images/blank.png" class="gameTile">
+                        <img src="images/blank.png" class="gameTile" id="tile1">
+                        <img src="images/blank.png" class="gameTile" id="tile2">
+                        <img src="images/blank.png" class="gameTile" id="tile3">
                     </div>
                     <div class="row" id="row2">
-                        <img src="images/blank.png" class="gameTile">
-                        <img src="images/blank.png" class="gameTile">
-                        <img src="images/blank.png" class="gameTile">
+                        <img src="images/blank.png" class="gameTile" id="tile4">
+                        <img src="images/blank.png" class="gameTile" id="tile5">
+                        <img src="images/blank.png" class="gameTile" id="tile6">
                     </div>
                     <div class="row" id="row3">
-                        <img src="images/blank.png" class="gameTile">
-                        <img src="images/blank.png" class="gameTile">
-                        <img src="images/blank.png" class="gameTile">
+                        <img src="images/blank.png" class="gameTile" id="tile7">
+                        <img src="images/blank.png" class="gameTile" id="tile8">
+                        <img src="images/blank.png" class="gameTile" id="tile9">
                     </div>
                     
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-6 leftPanel">
                     <div class="row">
-                        <h3>Instructions</h3>
-                    </div>
-                    
-                    <div class="row">
+                        <button class="resetButton" id="reset">Reset</button> <br>
+                        <h3>Instructions</h3>                  
                         Play Naughts and Crosses!!<br>
-                        <h4>Features So Far:</h4>
+                        <div class="row scores">
+                            <div class="col-md-3">
+                                <h4>Player 1 (X)</h4> 
+                                <h4 id="p1Score">0</h4>
+                            </div>
+                            <div class="col-md-3">
+                                <h4>Player 2 (O)</h4>
+                                <h4 id="p2Score">0</h4>
+                            </div>
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+            
+            <div class="row extraInfo">
+                <h4>Features So Far:</h4>
                         <ul>
                             <li>version 1, interactive tiles!!</li>
                             <li>Tiles Cange to x (on every even click so the player who goes first will be 'X') and o (on every odd click so the player who goes second will be 'O').</li>
                             <li>Reset Button</li>
+                            <li>Cannot click same tile twice</li>
+                        </ul>
+                        
+                        <h4>Known Issues:</h4>
+                        <ul>
                         </ul>
                         
                         <h4>To Do:</h4>
@@ -58,10 +77,9 @@
                             <li>Auto Check for 3 in a row.</li>
                             <li>Make it work properly with 2 players (such as scores etc)</li>
                         </ul>
-                        <button id="reset">Reset</button>
-                        
-                    </div>
-                </div>
+            
+            
+            
             </div>
         
         
