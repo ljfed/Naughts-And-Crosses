@@ -1,9 +1,5 @@
-
-body {
-    
-}
 h1 {
-    color: darkorange;
+    color: yellowgreen;
 }
 .game {
     padding-top: 20px;
@@ -12,8 +8,14 @@ h1 {
 .gameTile {
     margin: 2px;
 }
-.leftPanel {
+.rightPanel {
     padding-top: 20px;
+}
+.player1Score {
+    color: #e39600;
+}
+.player2Score {
+    color: #ff4c06;
 }
 
 
