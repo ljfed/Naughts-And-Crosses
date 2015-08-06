@@ -2,6 +2,9 @@ var counter = 0;
 var tilesClicked = [];
 var circles = [];
 var crosses = [];
+var scoreX = 0;
+var scoreO = 0;
+var gamesInSession = 0;
 
 //Reset
 function reset() {
@@ -10,6 +13,13 @@ function reset() {
     circles = [];
     crosses = [];
     $('.gameTile').attr('src', 'images/blank.png');
+}
+function resetScores() {
+    scoreX = 0;
+    scoreO = 0;
+    gamesInSession = 0;
+    $("#p1Score").text(scoreX);
+    $("#p2Score").text(scoreO);
 }
 
 //Is and item in and array?
@@ -23,7 +33,7 @@ function isObjInArr(obj, arr) {
 }
 
 //Function that tests for three in a row
-function CheckForResault(arr) { //IN PROGRESS
+function CheckForResult(arr) { //IN PROGRESS
     var digitOneIsOne = 0;
     var digitOneIsTwo = 0;
     var digitOneIsThree = 0;
@@ -68,7 +78,7 @@ function CheckForResault(arr) { //IN PROGRESS
 $(document).ready(function(){
     $('.gameTile').click(function() {
         tileClicked = $(this).attr('id');
-        if (counter%2 === 0) { //checking counter is even
+        if (counter%2===0) { //Checking whos turn it is
             if (isObjInArr(tileClicked, tilesClicked)) { //checking if tile has been clicked
                 //Do nothing (function returns true)
             } else { //tile hasn't been clicked       
@@ -76,9 +86,11 @@ $(document).ready(function(){
                 tilesClicked.push(tileClicked);
                 crosses.push(tileClicked); 
                 counter++;
-                if (CheckForResault(crosses)) {
+                if (CheckForResult(crosses)) {
                     alert("Player 1 (X) WINS!");
                     reset();
+                    scoreX++;
+                    $("#p1Score").text(scoreX);
                 }
             }            
         } else {
@@ -89,9 +101,11 @@ $(document).ready(function(){
                 tilesClicked.push(tileClicked);
                 circles.push(tileClicked);
                 counter++;
-                if (CheckForResault(circles)) {
+                if (CheckForResult(circles)) {
                     alert("Player 2 (O) WINS!");
                     reset();
+                    scoreO++;
+                    $("#p2Score").text(scoreO);
                 }
             }
         }
@@ -102,5 +116,6 @@ $(document).ready(function(){
 $(document).ready(function(){
     $('#reset').click(function(){
         reset();
+        resetScores();
     });
 });
