@@ -3,6 +3,15 @@ var tilesClicked = [];
 var circles = [];
 var crosses = [];
 
+//Reset
+function reset() {
+    counter = 0;
+    tilesClicked = [];
+    circles = [];
+    crosses = [];
+    $('.gameTile').attr('src', 'images/blank.png');
+}
+
 //Is and item in and array?
 function isObjInArr(obj, arr) {
     for (var i=0;i<arr.length;i++) {
@@ -14,7 +23,7 @@ function isObjInArr(obj, arr) {
 }
 
 //Function that tests for three in a row
-function threeInARow(arr) { //IN PROGRESS
+function CheckForResault(arr) { //IN PROGRESS
     var digitOneIsOne = 0;
     var digitOneIsTwo = 0;
     var digitOneIsThree = 0;
@@ -49,6 +58,10 @@ function threeInARow(arr) { //IN PROGRESS
     if (digitOneIsOne>=3||digitOneIsTwo>=3||digitOneIsThree>=3||digitTwoIsOne>=3||digitTwoIsTwo>=3||digitTwoIsThree>=3||diagonalUpRight>=3||diagonalUpLeft>=3) {
         return true;
     }
+    if (counter===9) {
+        alert("The Game Is A Tie");
+        reset();
+    }
 }
 
 //Tiles change on click:
@@ -63,9 +76,9 @@ $(document).ready(function(){
                 tilesClicked.push(tileClicked);
                 crosses.push(tileClicked); 
                 counter++;
-                console.log(crosses);
-                if (threeInARow(crosses)) {
+                if (CheckForResault(crosses)) {
                     alert("Player 1 (X) WINS!");
+                    reset();
                 }
             }            
         } else {
@@ -76,8 +89,9 @@ $(document).ready(function(){
                 tilesClicked.push(tileClicked);
                 circles.push(tileClicked);
                 counter++;
-                if (threeInARow(circles)) {
+                if (CheckForResault(circles)) {
                     alert("Player 2 (O) WINS!");
+                    reset();
                 }
             }
         }
@@ -87,8 +101,6 @@ $(document).ready(function(){
 //Reset Button:
 $(document).ready(function(){
     $('#reset').click(function(){
-        $('.gameTile').attr('src', 'images/blank.png');
-        counter = 0;
-        tilesClicked = [];
+        reset();
     });
 });
