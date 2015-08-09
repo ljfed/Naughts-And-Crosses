@@ -1,6 +1,3 @@
-.green {
-    color: yellowgreen;
-}
 .game {
     padding-top: 20px;
     padding-right: 50px;
@@ -11,10 +8,10 @@
 .rightPanel {
     padding-top: 20px;
 }
-.player1Score {
+.p1Colour {
     color: #e39600;
 }
-.player2Score {
+.p2Colour {
     color: #ff4c06;
 }
 

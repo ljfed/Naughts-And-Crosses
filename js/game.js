@@ -4,7 +4,9 @@ var circles = [];
 var crosses = [];
 var scoreX = 0;
 var scoreO = 0;
+var numTies = 0;
 var gamesInSession = 0;
+var goingNext = 'x';
 
 //Resetfunctions
 function reset() {
@@ -18,10 +20,11 @@ function resetScores() {
     scoreX = 0;
     scoreO = 0;
     gamesInSession = 0;
+    goingNext = 'x';
     $("#p1Score").text(scoreX);
     $("#p2Score").text(scoreO);
+    $('#goingNext').text("Player 1 (X)");
 }
-
 //Is an item in an array?
 function isObjInArr(obj, arr) {
     for (var i=0;i<arr.length;i++) {
@@ -31,7 +34,6 @@ function isObjInArr(obj, arr) {
     }
     return false;
 }
-
 //Function that checks for a result
 function CheckForResult(arr) {
     var digitOneIsOne = 0;
@@ -71,10 +73,28 @@ function CheckForResult(arr) {
     if (counter===9) {
         alert("The Game Is A Tie");
         gamesInSession++;
+        numTies++;
+        $('#numTies').text(numTies);
+        console.log(numTies);
         reset();
     }
 }
 
+function whoGoesNext() {
+    if (gamesInSession%2===0) {
+        if (counter%2===0) {
+            goingNext = 'x';
+        } else {
+            goingNext = 'o';
+        }
+    } else {
+        if (counter%2===1) {
+            goingNext = 'x';
+        } else {
+            goingNext = 'o';
+        }        
+    }
+}
 //Crosses
 (function( $ ){
     $.fn.gameCross = function() {
@@ -113,24 +133,36 @@ $(document).ready(function(){
         if (isObjInArr(tileClicked, tilesClicked)) {
             //Do nothing (tile has already been clicked)
         } else {
-            if (gamesInSession%2===0) { //This time X goes first
-                if (counter%2===0) { //Checking whos turn it is  
-                    $(this).attr('src', 'images/x.png');
-                    $().gameCross();
-                    $("#whoGoesNext").text("Player 2 (O)");
-                } else {
-                    $(this).attr('src', 'images/circle.png');
-                    $().gameCircle();
-                }
-            } else { //This time O goes first
-                if (counter%2===0) { //Checking whos turn it is
-                    $(this).attr('src', 'images/circle.png');
-                    $().gameCircle();                                               
-                } else {   
-                    $(this).attr('src', 'images/x.png');
-                    $().gameCross();                                    
-                }
+            whoGoesNext();
+            if (goingNext==='x') {
+                $(this).attr('src', 'images/x.png');
+                $().gameCross();
+                $('#goingNext').text("Player 2 (O)");
+                $('#goingNext').removeClass('p1Colour').addClass('p2Colour');
+            } else {
+                $(this).attr('src', 'images/circle.png');
+                $().gameCircle();
+                $('#goingNext').text("Player 1 (X)");
+                $('#goingNext').removeClass('p2Colour').addClass('p1Colour');
             }
+//            if (gamesInSession%2===0) { //This time X goes first
+//                if (counter%2===0) { //Checking whos turn it is  
+//                    $(this).attr('src', 'images/x.png');
+//                    $().gameCross();
+//                    $("#whoGoesNext").text("Player 2 (O)");
+//                } else {
+//                    $(this).attr('src', 'images/circle.png');
+//                    $().gameCircle();
+//                }
+//            } else { //This time O goes first
+//                if (counter%2===0) { //Checking whos turn it is
+//                    $(this).attr('src', 'images/circle.png');
+//                    $().gameCircle();                                               
+//                } else {   
+//                    $(this).attr('src', 'images/x.png');
+//                    $().gameCross();                                    
+//                }
+//            }
         }
     });
 });

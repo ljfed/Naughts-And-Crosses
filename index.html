@@ -13,8 +13,8 @@
     <body>
         <div class="container">            
             <div class="row">
-                <div class="col-md-12 green text-center">
-                    <h1>Play Naughts And Crosses</h1>
+                <div class="col-md-12 text-center">
+                    <h1>Naughts and Crosses (2 Players)</h1>
                 </div>
             </div>
             
@@ -42,21 +42,24 @@
                         <button class="resetButton" id="reset">Reset</button>
                         
                         <div class="row scores">
-                            <div class="col-md-3 player1Score">
+                            <div class="col-md-3 p1Colour">
                                 <h4>Player 1 (X)</h4> 
                                 <h4 id="p1Score">0</h4>
                             </div>
-                            <div class="col-md-3 player2Score">
+                            <div class="col-md-3 p2Colour">
                                 <h4>Player 2 (O)</h4>
                                 <h4 id="p2Score">0</h4>
                             </div>
-                            <div class="col-md-3"></div>
+                            <div class="col-md-3">
+                                <h4>Ties</h4>
+                                <h4 id="numTies">0</h4>
+                            </div>
                         </div>        
                     </div>
                     
                     <div class="row goingNext">
-                            <h4 class="green">Going Next:</h4>
-                            <h4 id="whoGoesNext">Player 1 (X)</h4>
+                            <h4>Going Next:</h4>
+                            <h4 class="p1Colour" id="goingNext">Player 1 (X)</h4>
                     </div>
                 </div>
             </div>
@@ -70,6 +73,8 @@
                             <li>Cannot click same tile twice</li>
                             <li>Checks for a winner</li>
                             <li>Scores</li>
+                            <li>Ties</li>
+                            <li>"Going Next:"</li>
                         </ul>
                         
                         <h4>Known Issues:</h4>
@@ -78,8 +83,6 @@
                         
                         <h4>To Do:</h4>
                         <ul>
-                            <li>make "going next: player 1" work</li>
-                            <li>add tab between scores recoding the number of ties</li>
                             <li>Make a working AI</li>
                         </ul>           
             
