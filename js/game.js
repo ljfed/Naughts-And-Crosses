@@ -6,7 +6,7 @@ var scoreX = 0;
 var scoreO = 0;
 var gamesInSession = 0;
 
-//Reset
+//Resetfunctions
 function reset() {
     counter = 0;
     tilesClicked = [];
@@ -22,7 +22,7 @@ function resetScores() {
     $("#p2Score").text(scoreO);
 }
 
-//Is and item in and array?
+//Is an item in an array?
 function isObjInArr(obj, arr) {
     for (var i=0;i<arr.length;i++) {
         if (arr[i] === obj) {
@@ -32,8 +32,8 @@ function isObjInArr(obj, arr) {
     return false;
 }
 
-//Function that tests for three in a row
-function CheckForResult(arr) { //IN PROGRESS
+//Function that checks for a result
+function CheckForResult(arr) {
     var digitOneIsOne = 0;
     var digitOneIsTwo = 0;
     var digitOneIsThree = 0;
@@ -70,42 +70,65 @@ function CheckForResult(arr) { //IN PROGRESS
     }
     if (counter===9) {
         alert("The Game Is A Tie");
+        gamesInSession++;
         reset();
     }
 }
 
+//Crosses
+(function( $ ){
+    $.fn.gameCross = function() {
+        tilesClicked.push(tileClicked);
+        crosses.push(tileClicked); 
+        counter++;
+        if (CheckForResult(crosses)) {
+            alert("Player 1 (X) WINS!");
+            gamesInSession++;
+            reset();
+            scoreX++;
+            $("#p1Score").text(scoreX);
+        }
+    };
+})( jQuery );
+//Circles
+(function( $ ){
+    $.fn.gameCircle = function() {
+        tilesClicked.push(tileClicked);
+        circles.push(tileClicked);
+        counter++;
+        if (CheckForResult(circles)) {
+            alert("Player 2 (O) WINS!");
+            gamesInSession++;
+            reset();
+            scoreO++;
+            $("#p2Score").text(scoreO);
+        }        
+    };
+})( jQuery );
+
 //Tiles change on click:
-$(document).ready(function(){
+$(document).ready(function(){ 
     $('.gameTile').click(function() {
         tileClicked = $(this).attr('id');
-        if (counter%2===0) { //Checking whos turn it is
-            if (isObjInArr(tileClicked, tilesClicked)) { //checking if tile has been clicked
-                //Do nothing (function returns true)
-            } else { //tile hasn't been clicked       
-                $(this).attr('src', 'images/x.png');
-                tilesClicked.push(tileClicked);
-                crosses.push(tileClicked); 
-                counter++;
-                if (CheckForResult(crosses)) {
-                    alert("Player 1 (X) WINS!");
-                    reset();
-                    scoreX++;
-                    $("#p1Score").text(scoreX);
-                }
-            }            
+        if (isObjInArr(tileClicked, tilesClicked)) {
+            //Do nothing (tile has already been clicked)
         } else {
-            if (isObjInArr(tileClicked, tilesClicked)) {
-                //do nothing (function returns true)
-            } else {
-                $(this).attr('src', 'images/circle.png');
-                tilesClicked.push(tileClicked);
-                circles.push(tileClicked);
-                counter++;
-                if (CheckForResult(circles)) {
-                    alert("Player 2 (O) WINS!");
-                    reset();
-                    scoreO++;
-                    $("#p2Score").text(scoreO);
+            if (gamesInSession%2===0) { //This time X goes first
+                if (counter%2===0) { //Checking whos turn it is  
+                    $(this).attr('src', 'images/x.png');
+                    $().gameCross();
+                    $("#whoGoesNext").text("Player 2 (O)");
+                } else {
+                    $(this).attr('src', 'images/circle.png');
+                    $().gameCircle();
+                }
+            } else { //This time O goes first
+                if (counter%2===0) { //Checking whos turn it is
+                    $(this).attr('src', 'images/circle.png');
+                    $().gameCircle();                                               
+                } else {   
+                    $(this).attr('src', 'images/x.png');
+                    $().gameCross();                                    
                 }
             }
         }

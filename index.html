@@ -5,17 +5,15 @@
         
         <link rel="stylesheet" href="css/bootstrap.css">
         <link rel="stylesheet" href="css/bootstrap-theme.css">
-        <link rel="stylesheet" href="css/style.css">
-        
+        <link rel="stylesheet" href="css/style.css">        
         <style type="text/css"></style>       
    
         <title>Naughts And Crosses!</title>
     </head> 
     <body>
-        <div class="container">
-            
+        <div class="container">            
             <div class="row">
-                <div class="col-md-12 text-center">
+                <div class="col-md-12 green text-center">
                     <h1>Play Naughts And Crosses</h1>
                 </div>
             </div>
@@ -36,12 +34,13 @@
                         <img src="images/blank.png" class="gameTile" id="11">
                         <img src="images/blank.png" class="gameTile" id="12">
                         <img src="images/blank.png" class="gameTile" id="13">
-                    </div>
-                    
+                    </div>                    
                 </div>
+                
                 <div class="col-md-6 rightPanel">
                     <div class="row">
                         <button class="resetButton" id="reset">Reset</button>
+                        
                         <div class="row scores">
                             <div class="col-md-3 player1Score">
                                 <h4>Player 1 (X)</h4> 
@@ -51,8 +50,13 @@
                                 <h4>Player 2 (O)</h4>
                                 <h4 id="p2Score">0</h4>
                             </div>
-                        </div>
-                        
+                            <div class="col-md-3"></div>
+                        </div>        
+                    </div>
+                    
+                    <div class="row goingNext">
+                            <h4 class="green">Going Next:</h4>
+                            <h4 id="whoGoesNext">Player 1 (X)</h4>
                     </div>
                 </div>
             </div>
@@ -61,10 +65,10 @@
                 <h4>Features So Far:</h4>
                         <ul>
                             <li>version 1: interactive tiles!!</li>
-                            <li>Tiles Cange to x (on every even click so the player who goes first will be 'X') and o (on every odd click so the player who goes second will be 'O').</li>
+                            <li>Full turn altination</li>
                             <li>Reset Button</li>
                             <li>Cannot click same tile twice</li>
-                            <li>Can now check for a winner</li>
+                            <li>Checks for a winner</li>
                             <li>Scores</li>
                         </ul>
                         
@@ -74,8 +78,9 @@
                         
                         <h4>To Do:</h4>
                         <ul>
-                            <li>turn altination (Add thing near scores saying whos turn it is)</li>
-                            <li>AI</li>
+                            <li>make "going next: player 1" work</li>
+                            <li>add tab between scores recoding the number of ties</li>
+                            <li>Make a working AI</li>
                         </ul>           
             
             </div>

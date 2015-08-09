@@ -1,4 +1,4 @@
-h1 {
+.green {
     color: yellowgreen;
 }
 .game {
@@ -17,7 +17,6 @@ h1 {
 .player2Score {
     color: #ff4c06;
 }
-
 
 .extraInfo {
     margin-top: 40px;
