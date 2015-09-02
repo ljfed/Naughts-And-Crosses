@@ -19,11 +19,13 @@ function reset() {
 function resetScores() {
     scoreX = 0;
     scoreO = 0;
+    numTies = 0;
     gamesInSession = 0;
     goingNext = 'x';
     $("#p1Score").text(scoreX);
     $("#p2Score").text(scoreO);
-    $('#goingNext').text("Player 1 (X)");
+    $("#numTies").text(numTies);
+    $('#goingNext').removeClass('p2Colour').addClass('p1Colour').text("Player 1 (X)");
 }
 //Is an item in an array?
 function isObjInArr(obj, arr) {
@@ -75,7 +77,6 @@ function CheckForResult(arr) {
         gamesInSession++;
         numTies++;
         $('#numTies').text(numTies);
-        console.log(numTies);
         reset();
     }
 }
@@ -98,9 +99,9 @@ function whoGoesNext() {
 //Crosses
 (function( $ ){
     $.fn.gameCross = function() {
-        tilesClicked.push(tileClicked);
         crosses.push(tileClicked); 
         counter++;
+        $('#goingNext').removeClass('p1Colour').addClass('p2Colour').text("Player 2 (O)");
         if (CheckForResult(crosses)) {
             alert("Player 1 (X) WINS!");
             gamesInSession++;
@@ -113,9 +114,9 @@ function whoGoesNext() {
 //Circles
 (function( $ ){
     $.fn.gameCircle = function() {
-        tilesClicked.push(tileClicked);
         circles.push(tileClicked);
         counter++;
+        $('#goingNext').removeClass('p2Colour').addClass('p1Colour').text("Player 1 (X)");
         if (CheckForResult(circles)) {
             alert("Player 2 (O) WINS!");
             gamesInSession++;
@@ -133,36 +134,15 @@ $(document).ready(function(){
         if (isObjInArr(tileClicked, tilesClicked)) {
             //Do nothing (tile has already been clicked)
         } else {
+            tilesClicked.push(tileClicked);
             whoGoesNext();
             if (goingNext==='x') {
                 $(this).attr('src', 'images/x.png');
                 $().gameCross();
-                $('#goingNext').text("Player 2 (O)");
-                $('#goingNext').removeClass('p1Colour').addClass('p2Colour');
             } else {
                 $(this).attr('src', 'images/circle.png');
                 $().gameCircle();
-                $('#goingNext').text("Player 1 (X)");
-                $('#goingNext').removeClass('p2Colour').addClass('p1Colour');
             }
-//            if (gamesInSession%2===0) { //This time X goes first
-//                if (counter%2===0) { //Checking whos turn it is  
-//                    $(this).attr('src', 'images/x.png');
-//                    $().gameCross();
-//                    $("#whoGoesNext").text("Player 2 (O)");
-//                } else {
-//                    $(this).attr('src', 'images/circle.png');
-//                    $().gameCircle();
-//                }
-//            } else { //This time O goes first
-//                if (counter%2===0) { //Checking whos turn it is
-//                    $(this).attr('src', 'images/circle.png');
-//                    $().gameCircle();                                               
-//                } else {   
-//                    $(this).attr('src', 'images/x.png');
-//                    $().gameCross();                                    
-//                }
-//            }
         }
     });
 });

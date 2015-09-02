@@ -1,0 +1,98 @@
+<html>
+    <head>  
+        <script src="js/jquery-1.11.3.js"></script>
+        <script type="text/javascript" src="js/game_PvP.js"></script>
+        
+        <link rel="stylesheet" href="css/bootstrap.css">
+        <link rel="stylesheet" href="css/bootstrap-theme.css">
+        <link rel="stylesheet" href="css/style.css">        
+        <style type="text/css"></style>       
+   
+        <title>Naughts And Crosses!</title>
+    </head> 
+    <body>
+        <div class="container">            
+            <div class="row">
+                <div class="col-md-12 text-center">
+                    <h1>Naughts and Crosses (2 Players)</h1>
+                </div>
+            </div>
+            
+            <div class="row">
+                <div class="col-md-6 text-right game">
+                    <div class="row" id="row1">
+                        <img src="images/blank.png" class="gameTile" id="31">
+                        <img src="images/blank.png" class="gameTile" id="32">
+                        <img src="images/blank.png" class="gameTile" id="33">
+                    </div>
+                    <div class="row" id="row2">
+                        <img src="images/blank.png" class="gameTile" id="21">
+                        <img src="images/blank.png" class="gameTile" id="22">
+                        <img src="images/blank.png" class="gameTile" id="23">
+                    </div>
+                    <div class="row" id="row3">
+                        <img src="images/blank.png" class="gameTile" id="11">
+                        <img src="images/blank.png" class="gameTile" id="12">
+                        <img src="images/blank.png" class="gameTile" id="13">
+                    </div>                    
+                </div>
+                
+                <div class="col-md-6 rightPanel">
+                    <div class="row">
+                        <button class="resetButton" id="reset">Reset</button>
+                        
+                        <div class="row scores">
+                            <div class="col-md-3 p1Colour">
+                                <h4>Player 1 (X)</h4> 
+                                <h4 id="p1Score">0</h4>
+                            </div>
+                            <div class="col-md-3 p2Colour">
+                                <h4>Player 2 (O)</h4>
+                                <h4 id="p2Score">0</h4>
+                            </div>
+                            <div class="col-md-3">
+                                <h4>Ties</h4>
+                                <h4 id="numTies">0</h4>
+                            </div>
+                        </div>        
+                    </div>
+                    
+                    <div class="row goingNext">
+                            <h4>Going Next:</h4>
+                            <h4 class="p1Colour" id="goingNext">Player 1 (X)</h4>
+                    </div>
+                    
+                    <div class="row">
+                        <a href="PvAI.html">Click Here To Play Naughts and Crosses Against My Unstoppable AI!</a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="row extraInfo">
+                <h4>Features So Far:</h4>
+                        <ul>
+                            <li>Version 2: All Two Players Features Are Implimented</li>
+                            <li>Full turn altination</li>
+                            <li>Reset Button</li>
+                            <li>Cannot click same tile twice</li>
+                            <li>Checks for a winner</li>
+                            <li>Scores and Ties</li>
+                            <li>"Going Next:"</li>
+                        </ul>
+                        
+                        <h4>Known Issues:</h4>
+                        <ul>
+                            <li>No Known Issues</li>
+                        </ul>
+                        
+                        <h4>To Do:</h4>
+                        <ul>
+                            <li>Make a working AI</li>
+                        </ul>           
+            
+            </div>
+        
+        
+        </div>
+    </body>
+</html>
