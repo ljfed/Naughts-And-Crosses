@@ -10,7 +10,9 @@ var numTies = 0;
 var gamesInSession = 0;
 var goingNext = '';
 var ai_next_move = '';
-var hasMove = false;
+var corners = ['11', '13', '31', '33'];
+var edges = ['21', '32', '12', '23'];
+var secondMove = '';
 
 //Resetfunctions
 function reset() {
@@ -19,6 +21,7 @@ function reset() {
     circles = [];
     crosses = [];
     ai_next_move = ''; //is this need? is it bad to put here?
+    secondMove = '';
     tilesLeft = ['11','12','13','21','22','23','31','32','33'];
     $('.gameTile').attr('src', 'images/blank.png');
 }
@@ -29,6 +32,7 @@ function resetScores() {
     gamesInSession = 0;
     goingNext = 'x';
     ai_next_move = '';
+    secondMove = '';
     $("#p1Score").text(scoreX);
     $("#p2Score").text(scoreO);
     $("#numTies").text(numTies);
@@ -109,8 +113,9 @@ function arrayStuff(tileA) {
     tilesLeft.splice(index, 1); //potential bug of only splicing 1? (unlikely) 
 }
 
-function ai_shot() { //MUST CALL FUNCTION AFTER appending to circles/crosses || propblem with moving to defend (eg. row one) instead of moving to win (eg. in row three), fix by checking / counting outside of a inner for loop 
-    results = [ //put a var?
+function ai_win_defend() { 
+    moveRequired = false;
+    results = [ //resets every time the function is calles
         ['11', '12', '13'], //row 1
         ['21', '22', '23'], //row 2
         ['31', '32', '33'], //row 3
@@ -118,7 +123,7 @@ function ai_shot() { //MUST CALL FUNCTION AFTER appending to circles/crosses || 
         ['12', '22', '32'], //collumn 2
         ['13', '23', '33'], //collumn 3
         ['13', '22', '31'], //diagonal 1
-        ['11', '22', '33'], //diagonal 2     -->pretty sure this resets whe ngame resets
+        ['11', '22', '33'], //diagonal 2     -
     ];
     var defendingMoves = []
     for (var a = 0; a < results.length; a++) {
@@ -127,7 +132,7 @@ function ai_shot() { //MUST CALL FUNCTION AFTER appending to circles/crosses || 
         for (var b = 0; b < results[a].length; b++) {
             //replace coordinate with 'o' or 'x'
             for (item = 0; item < circles.length; item++) {
-                if (circles[item] === results[a][b]) { //cant have same item in circles and crosses right?
+                if (circles[item] === results[a][b]) { //cant have same item in circles and crosses
                     results[a][b] = 'o';
                     counter_o++;
                 }
@@ -138,20 +143,19 @@ function ai_shot() { //MUST CALL FUNCTION AFTER appending to circles/crosses || 
                     counter_x++;
                 }
             }
-            if (counter_o >= 2 && counter_x === 0) { //Does  && counter_x === 0 fix problem?
+            if (counter_o >= 2 && counter_x === 0) {
                 //make AI's next click at the coordinate of the one left
                 for (var c = 0; c < 3; c++) {
                     if (results[a][c] !== 'o') {
                         if (!isObjInArr(results[a][c], tilesClicked)) {
                             ai_next_move = results[a][c]; //this being the AI's next move #HERE IS THE OUTPUT!!!!!#
+                            moveRequired = true;
                             console.log('winning move: ' + ai_next_move);
                             return;
-                        } else {
-                            //GO RANDOM?
                         }
                     }
                 }
-            } else if (counter_x >= 2 && counter_o === 0) { //Does  && counter_o === 0 fix problem?
+            } else if (counter_x >= 2 && counter_o === 0) {
                 //make AI's next click at the coordinate of the one left
                 for (var c = 0; c < 3; c++) {
                     if (results[a][c] !=='x' && results[a][c] !=='o') {
@@ -163,13 +167,62 @@ function ai_shot() { //MUST CALL FUNCTION AFTER appending to circles/crosses || 
             } 
         }
     }
-    if (defendingMoves.length === 0) {
+    if (defendingMoves.length === 0) { //this is called here to make sure winning moves are ALWAYS be prioritized
         ai_next_move = tilesLeft[Math.floor(Math.random()*tilesLeft.length)];
         console.log('should be random: ' + ai_next_move);
         return;
     } else {
-        ai_next_move = defendingMoves[Math.floor(Math.random()*defendingMoves.length)]; //just do defendingMoves[0]
+        ai_next_move = defendingMoves[Math.floor(Math.random()*defendingMoves.length)]; //just do defendingMoves[0], but this is predictable
+        moveRequired = true;
         console.log('should choose a (random) defending move: ' + ai_next_move);
+    }
+}
+
+function loopAndCheck(arr) { //BETTER NAME?
+    for (var i = 0; i < arr.length; i++) {
+        if (!isObjInArr(arr[i], tilesClicked)) {
+            ai_next_move = arr[i]; 
+            return; //will this break the if / else loop too?
+        }
+    }
+}
+
+function ai_shot() {
+    ai_win_defend(); 
+    if (moveRequired === true) {
+        ai_win_defend();
+        
+    } else if (counter === 0) { //meaning ai goes first
+        ai_next_move = corners[Math.floor(Math.random()*corners.length)]; //ai goes in random corner 
+        console.log('moving in a corner (first): ' + ai_next_move);
+        
+    } else if (counter === 1) { //meaning ai goes 2nd
+        //ai go in center or random corner if player going forst went in center
+        if (isObjInArr('22', tilesClicked)) { //FIX
+            ai_next_move = corners[Math.floor(Math.random()*corners.length)]; //no need to check if in tilesclicked as only '22' (center) is in it
+            secondMove = 'corner';
+            console.log('moving on random corner (second): ' + ai_next_move);            
+        } else {
+            ai_next_move = '22';
+            secondMove = 'center';
+            console.log('moving in center (second): ' + ai_next_move);
+        }
+        
+    } else if (counter === 2) { //meaning ai goes 3rd (and also went first)
+        //ai goes in another corner
+        loopAndCheck(corners);
+        console.log('moving on corner (third): ' + ai_next_move);                      
+        
+    } else if (counter === 3) { //meaning ai goes 4th (and also went second)
+        //ai follows up center with an edge OR follows up a corner with two options: defend or another corner
+        if (secondMove === 'center') {
+            loopAndCheck(edges);
+            console.log('moving on random edge (fourth): ' + ai_next_move);
+        } else if (secondMove === 'corner') {
+            loopAndCheck(corners);
+            console.log('moving on corner (fourth): ' + ai_next_move);
+        }
+        secondMove = '';
     }
 }
 
@@ -187,11 +240,10 @@ function ai_shot() { //MUST CALL FUNCTION AFTER appending to circles/crosses || 
         }
     };
 })( jQuery );
-//Circles (AI stuff goes here)
+
+//Circles (AI)
 (function( $ ){
     $.fn.gameCircle = function() {
-        //tileClicked = tilesLeft[Math.floor(Math.random()*tilesLeft.length)];
-        //$('#' + tileClicked).attr('src', 'images/circle.png');
         ai_shot();
         $('#' + ai_next_move).attr('src', 'images/circle.png');
         arrayStuff(ai_next_move);
@@ -207,7 +259,7 @@ function ai_shot() { //MUST CALL FUNCTION AFTER appending to circles/crosses || 
     };
 })( jQuery );
 
-//The part that actually does stuff (tiles change on click / AI does stuff)
+//The part that actually does stuff (calls functions)
 whoGoesNext()
 if (goingNext === 'x') {
     $(document).ready(function(){ 
