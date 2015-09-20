@@ -1,10 +1,10 @@
 <html>
     <head>  
-        <script src="js/jquery-1.11.3.js"></script>
+        <script src="js/jquery-1.11.3.min.js"></script>
         <script type="text/javascript" src="js/game_PvP.js"></script>
         
-        <link rel="stylesheet" href="css/bootstrap.css">
-        <link rel="stylesheet" href="css/bootstrap-theme.css">
+        <link rel="stylesheet" href="css/bootstrap.min.css">
+        <link rel="stylesheet" href="css/bootstrap-theme.min.css">
         <link rel="stylesheet" href="css/style.css">        
         <style type="text/css"></style>       
    
@@ -14,7 +14,12 @@
         <div class="container">            
             <div class="row">
                 <div class="col-md-12 text-center">
-                    <h1>Naughts and Crosses (2 Players)</h1>
+                    <h1>Naughts and Crosses</h1>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12 text-center">
+                    <h3>Currently Playing: Two Players</h3>
                 </div>
             </div>
             
@@ -39,7 +44,11 @@
                 
                 <div class="col-md-6 rightPanel">
                     <div class="row">
-                        <button class="resetButton" id="reset">Reset</button>
+                        <button class="resetButton btn" id="reset">Reset</button>
+                        <hr class="line">
+                    </div>
+                    
+                    <div class="row">
                         
                         <div class="row scores">
                             <div class="col-md-3 p1Colour">
@@ -47,28 +56,34 @@
                                 <h4 id="p1Score">0</h4>
                             </div>
                             <div class="col-md-3 p2Colour">
-                                <h4>Player 2 (O)</h4>
+                                <h4>AI (O)</h4>
                                 <h4 id="p2Score">0</h4>
                             </div>
                             <div class="col-md-3">
                                 <h4>Ties</h4>
                                 <h4 id="numTies">0</h4>
                             </div>
-                        </div>        
+                        </div>   
+                        <hr class="line">
                     </div>
                     
+                    
                     <div class="row goingNext">
-                            <h4>Going Next:</h4>
-                            <h4 class="p1Colour" id="goingNext">Player 1 (X)</h4>
+                        <h4>Going Next:</h4>
+                        <h4 class="p1Colour" id="goingNext">Player 1 (X)</h4>
+                        <hr class="line">
                     </div>
+                    
                     
                     <div class="row">
                         <br>
-                        <a href="PvAI.html">Click Here To Play Naughts and Crosses Against My Unstoppable AI!</a>
+                        <form method="get" action="PvAI.html">
+                            <button class="btn">Play Singleplayer</button>
+                        </form>
                     </div>
                 </div>
             </div>
-            
+<!--
             <div class="row extraInfo">
                 <h4>Features So Far:</h4>
                         <ul>
@@ -80,14 +95,8 @@
                             <li>Scores and Ties</li>
                             <li>"Going Next:"</li>
                         </ul>
-                        
-                        <h4>Known Issues:</h4>
-                        <ul>
-                            <li>No Known Issues</li>
-                        </ul>         
-            
             </div>        
-        
+-->     
         </div>
     </body>
 </html>

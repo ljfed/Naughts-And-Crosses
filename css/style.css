@@ -7,6 +7,8 @@
 }
 .rightPanel {
     padding-top: 20px;
+    padding-left: 0px;
+    margin-left: ;
 }
 .p1Colour {
     color: #e39600;
@@ -14,7 +16,10 @@
 .p2Colour {
     color: #ff4c06;
 }
-
 .extraInfo {
     margin-top: 40px;
+}
+.line {
+    margin-top: 15;
+    margin-bottom: 10;
 }
