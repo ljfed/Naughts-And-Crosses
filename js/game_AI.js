@@ -12,7 +12,7 @@ var ai_next_move = '';
 var corners = ['11', '13', '31', '33'];
 var edges = ['21', '32', '12', '23'];
 var secondMove = '';
-//Resetfunctions
+//Reset functions
 function reset() {
     counter = 0;
     tilesClicked = [];
@@ -129,7 +129,7 @@ function ai_win_defend() {
         for (var b = 0; b < results[a].length; b++) {
             //replace coordinate with 'o' or 'x'
             for (item = 0; item < circles.length; item++) {
-                if (circles[item] === results[a][b]) { //cant have same item in circles and crosses
+                if (circles[item] === results[a][b]) { //can't have same item in circles and crosses
                     results[a][b] = 'o';
                     counter_o++;
                 }
@@ -164,7 +164,7 @@ function ai_win_defend() {
             } 
         }
     }
-    if (defendingMoves.length === 0) { //this is called here to make sure winning moves are ALWAYS be prioritized
+    if (defendingMoves.length === 0) { //this is called here to make sure winning moves are ALWAYS prioritized
         ai_next_move = tilesLeft[Math.floor(Math.random()*tilesLeft.length)];
         //console.log('should be random: ' + ai_next_move);
         return;
