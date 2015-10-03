@@ -1,3 +1,4 @@
 # Naughts-And-Crosses
-A naughts and crosses game made using JavaScript / HTML (and jQuery / bootstrap)
-Play 2 players or 1 player against the unstoppable computer
+* A naughts and crosses game made using JavaScript / HTML / CSS / jQuery / Bootstrap
+* Play with 2 players
+* Play single-player against the unstoppable computer
